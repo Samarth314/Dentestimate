@@ -84,13 +84,6 @@
       
 
             <div class="text-center"><button type="submit">Save Information</button></div>
-          </form>
-
-          <div class="text-center"><p>Please provide an image of your face. Cropping out the background and centering your teeth in the frame of the picture will help improve accuracy!</p></div>
-
-
-          <form action="/upload-image" method="POST" enctype="multipart/form-data">
-
             <br></br>
 
             <input type="file" accept="image/*" id="file-input" name="file_image" id="file_image">
@@ -104,8 +97,28 @@
             <br></br>
 
             <div class="text-center"><button type="submit">Submit 🎉</button></div>
-
           </form>
+
+          <div class="text-center"><p>Please provide an image of your face. Cropping out the background and centering your teeth in the frame of the picture will help improve accuracy!</p></div>
+
+
+          <!-- <form action="/upload-image" method="POST" enctype="multipart/form-data">
+
+             <br></br>
+
+            <input type="file" accept="image/*" id="file-input" name="file_image" id="file_image">
+
+            <script>
+              const fileInput = document.getElementById('file-input');
+
+              fileInput.addEventListener('change', (e) => doSomethingWithFiles(e.target.files));
+            </script>
+
+            <br></br>
+
+            <div class="text-center"><button type="submit">Submit 🎉</button></div> 
+
+          </form> -->
         </div>
 
       </div>
