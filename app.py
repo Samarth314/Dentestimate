@@ -76,28 +76,54 @@ def upload_image():
 
             print(image)
 
+            np.set_printoptions(suppress=True)
+            model = tensorflow.keras.models.load_model('keras_model.h5')
+            data = np.ndarray(shape=(1, 224, 224, 3), dtype=np.float32)
+
+            Image.open("/Users/samarth/Downloads/Dentestimate2/static/result_img/" + email_array[0] + ".png").save("/Users/samarth/Downloads/Dentestimate2/static/result_img/" + email_array[0] + ".bmp")
+
+            image = Image.open("/Users/samarth/Downloads/Dentestimate2/static/result_img/" + email_array[0] + ".bmp")
+
+
+            size = (224, 224)
+            image = ImageOps.fit(image, size, Image.ANTIALIAS)
+            image_array = np.asarray(image)
+            # image.show()
+
+            normalized_image_array = (image_array.astype(np.float32) / 127.0) - 1
+
+            data[0] = normalized_image_array
+
+            prediction = model.predict(data)
+            
+            prediction = prediction.ravel()
+            prediction = prediction.tolist()
+            max_value = max(prediction)
+
+            max_index = prediction.index(max_value)
+
+            print(prediction)
+            print(max_value)
+            print(max_index)
+
+            if(max_index==0):
+                return render_template('fillings.html')
+
+            if(max_index==1):
+                return render_template("crowns.html")
+
+            if(max_index==2):
+                return render_template("extractions.html")
+
+            if(max_index==3):
+                return render_template("implants.html")
+            
+            if(max_index==4):
+                return render_template("braces.html")
+
+
             return redirect(request.url)
 
-    np.set_printoptions(suppress=True)
-    model = tensorflow.keras.models.load_model('keras_model.h5')
-    data = np.ndarray(shape=(1, 224, 224, 3), dtype=np.float32)
-
-    Image.open("/Users/samarth/Downloads/Dentestimate2/static/result_img/" + email_array[0] + ".png").save("/Users/samarth/Downloads/Dentestimate2/static/result_img/" + email_array[0] + ".bmp")
-
-    image = Image.open("/Users/samarth/Downloads/Dentestimate2/static/result_img/" + email_array[0] + ".bmp")
-
-
-    size = (224, 224)
-    image = ImageOps.fit(image, size, Image.ANTIALIAS)
-    image_array = np.asarray(image)
-    # image.show()
-
-    normalized_image_array = (image_array.astype(np.float32) / 127.0) - 1
-
-    data[0] = normalized_image_array
-
-    prediction = model.predict(data)
-    print(prediction)
 
 
     return render_template("index.html")
