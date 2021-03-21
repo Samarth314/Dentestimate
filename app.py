@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request, redirect
 import os
 import time
-import temp
 from tensorflow.keras.models import load_model
 from imutils import paths
 import imutils
@@ -88,7 +87,6 @@ def upload_image():
             size = (224, 224)
             image = ImageOps.fit(image, size, Image.ANTIALIAS)
             image_array = np.asarray(image)
-            # image.show()
 
             normalized_image_array = (image_array.astype(np.float32) / 127.0) - 1
 
